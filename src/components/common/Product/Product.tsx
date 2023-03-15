@@ -28,7 +28,10 @@ const StyledCardActions = styled(CardActions)(() => ({
   justifyContent: 'space-between',
 }));
 
-const Product: React.FC<TProductProps> = ({ product }) => {
+const Product: React.FC<TProductProps> = ({
+  product,
+  addToCart = () => {},
+}) => {
   return (
     <StyledProductWrapper>
       <StyledCard>
@@ -46,7 +49,7 @@ const Product: React.FC<TProductProps> = ({ product }) => {
             color="error"
           >{`$${product.price}`}</Typography>
 
-          <Button variant="outlined">
+          <Button variant="outlined" onClick={() => addToCart(product)}>
             <AddShoppingCartIcon />
             Add to Cart
           </Button>

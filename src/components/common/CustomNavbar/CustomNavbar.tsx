@@ -1,6 +1,7 @@
 import { ShoppingCart } from '@mui/icons-material';
 import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Badge } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -13,7 +14,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import * as React from 'react';
+import { useRouter } from 'next/router';
+import React from 'react';
+
+import useCartState from '@/hooks/useCartState';
 
 const categories = [
   'Electronics',
@@ -24,6 +28,8 @@ const categories = [
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<boolean>(false);
+  const router = useRouter();
+  const { totalItems } = useCartState();
 
   const handleOpenNavMenu = () => {
     setAnchorElNav(true);
@@ -32,7 +38,6 @@ function ResponsiveAppBar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(false);
   };
-
   return (
     <AppBar position="fixed">
       <Container maxWidth="xl">
@@ -115,8 +120,15 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <IconButton size="large" sx={{ p: 0 }} color="inherit">
-              <ShoppingCart />
+            <IconButton
+              size="large"
+              sx={{ p: 0 }}
+              color="inherit"
+              onClick={() => router.push('/cart')}
+            >
+              <Badge badgeContent={totalItems} color="error">
+                <ShoppingCart />
+              </Badge>
             </IconButton>
           </Box>
         </Toolbar>

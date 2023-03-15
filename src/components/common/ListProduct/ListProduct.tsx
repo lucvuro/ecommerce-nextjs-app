@@ -18,6 +18,7 @@ const StyledListProductWrapper = styled(Box)(({ theme }) => ({
 const ListProduct: React.FC<TListProductProps> = ({
   listProduct,
   isLoading,
+  addToCart,
 }) => {
   const emptyArray = generateEmptyArray(8);
   return (
@@ -25,7 +26,7 @@ const ListProduct: React.FC<TListProductProps> = ({
       {!isLoading &&
         listProduct &&
         listProduct.map((product) => (
-          <Product key={product.id} product={product} />
+          <Product key={product.id} product={product} addToCart={addToCart} />
         ))}
       {isLoading &&
         emptyArray.map((_, index) => (

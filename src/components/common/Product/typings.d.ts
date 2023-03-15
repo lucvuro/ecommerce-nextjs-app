@@ -7,4 +7,5 @@ export type TProduct = {
 };
 export type TProductProps = {
   product: TProduct;
+  addToCart?: (product: TProduct) => void;
 };
