@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { HYDRATE } from 'next-redux-wrapper';
 
 import type { TProduct } from '@/components/common/Product/typings';
 
@@ -9,11 +10,13 @@ export type TCartItem = TProduct & {
 type TCartState = {
   cartItems: TCartItem[];
   totalItems: number;
+  totalPrice: number;
 };
 
 const initialState: TCartState = {
   cartItems: [],
   totalItems: 0,
+  totalPrice: 0,
 };
 
 export const cartSlice = createSlice({
@@ -28,6 +31,7 @@ export const cartSlice = createSlice({
         state.cartItems = [...state.cartItems, { ...action.payload, count: 1 }];
       else item.count += 1;
       state.totalItems += 1;
+      state.totalPrice += action.payload.price;
     },
     subtractItem: (state, action) => {
       const item = state.cartItems.find(
@@ -37,6 +41,7 @@ export const cartSlice = createSlice({
         if (item.count <= 1) return;
         item.count -= 1;
         state.totalItems -= 1;
+        state.totalPrice -= action.payload.price;
       }
     },
     removeItem: (state, action) => {
@@ -45,6 +50,15 @@ export const cartSlice = createSlice({
       );
       state.totalItems -= action.payload.count;
       state.cartItems = newCartItems;
+      state.totalPrice -= action.payload.count * action.payload.price;
+    },
+  },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload.cart,
+      };
     },
   },
 });
