@@ -1,5 +1,7 @@
 import '../styles/global.css';
 
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
@@ -16,9 +18,11 @@ const MyApp = ({ Component, ...rest }: AppProps) => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={<LoadingPersist />}>
-        <MainLayout>
-          <Component {...pageProps} />
-        </MainLayout>
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <MainLayout>
+            <Component {...pageProps} />
+          </MainLayout>
+        </LocalizationProvider>
       </PersistGate>
     </Provider>
   );
