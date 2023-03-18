@@ -1,5 +1,6 @@
 export type TShippingAddressProps = {
   handleNextStep?: (data: TShippingAddressData) => void;
+  addressInfo?: TShippingAddressData | null;
 };
 export type TShippingAddressData = {
   firstName: string;

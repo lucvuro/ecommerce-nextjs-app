@@ -21,4 +21,5 @@ export type TRHFSelectFieldProps = {
       >
     | undefined;
   data?: TDataSelect[];
+  defaultValue?: string;
 };

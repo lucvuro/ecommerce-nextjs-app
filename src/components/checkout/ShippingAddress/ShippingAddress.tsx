@@ -34,6 +34,7 @@ const cities = [
 
 const ShippingAddress: React.FC<TShippingAddressProps> = ({
   handleNextStep = () => {},
+  addressInfo,
 }) => {
   const methods = useForm<TShippingAddressData>();
   const {
@@ -50,6 +51,7 @@ const ShippingAddress: React.FC<TShippingAddressProps> = ({
           <StyledStackFields>
             <RHFTextField
               name="firstName"
+              defaultValue={addressInfo?.firstName}
               rules={{
                 required: {
                   value: true,
@@ -63,6 +65,7 @@ const ShippingAddress: React.FC<TShippingAddressProps> = ({
             />
             <RHFTextField
               name="lastName"
+              defaultValue={addressInfo?.lastName}
               rules={{
                 required: {
                   value: true,
@@ -77,6 +80,7 @@ const ShippingAddress: React.FC<TShippingAddressProps> = ({
           </StyledStackFields>
           <RHFTextField
             name="address1"
+            defaultValue={addressInfo?.address1}
             rules={{
               required: {
                 value: true,
@@ -88,10 +92,16 @@ const ShippingAddress: React.FC<TShippingAddressProps> = ({
             errorMsg={errors.address1?.message}
             fullWidth
           />
-          <RHFTextField name="address2" label="Address 2" fullWidth />
+          <RHFTextField
+            name="address2"
+            defaultValue={addressInfo?.address2}
+            label="Address 2"
+            fullWidth
+          />
           <StyledStackFields>
             <RHFSelectField
               name="city"
+              defaultValue={addressInfo?.city}
               rules={{
                 required: {
                   value: true,
@@ -106,6 +116,7 @@ const ShippingAddress: React.FC<TShippingAddressProps> = ({
             />
             <RHFSelectField
               name="country"
+              defaultValue={addressInfo?.country}
               rules={{
                 required: {
                   value: true,
@@ -121,6 +132,7 @@ const ShippingAddress: React.FC<TShippingAddressProps> = ({
           </StyledStackFields>
           <RHFTextField
             name="zipcode"
+            defaultValue={addressInfo?.zipcode}
             rules={{
               required: {
                 value: true,

@@ -1,8 +1,9 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { StepCheckout } from '@/components/checkout';
+import type { TPaymentInfo } from '@/components/checkout/PaymentMethod/typings';
 import renderStep from '@/components/checkout/renderStep';
 import type { TShippingAddressData } from '@/components/checkout/ShippingAddress/typings';
 import { StyledBoxWrapper } from '@/components/common';
@@ -29,24 +30,31 @@ const Checkout = () => {
   const [addressInfo, setAddressInfo] = useState<TShippingAddressData | null>(
     null
   );
-  const handleNextStep = (data: TShippingAddressData) => {
+  const [paymentInfo, setPaymentInfo] = useState<TPaymentInfo | null>(null);
+  const handleNextStep = useCallback((data: any) => {
     const newCompletedSteps = completedSteps;
     newCompletedSteps.add(activeStep);
     setActiveStep((prevState) => prevState + 1);
     setCompeletedSteps(newCompletedSteps);
     if (activeStep === 0) setAddressInfo(data);
-    console.log(addressInfo);
-  };
-  // const hanldeBackStep = () => {
-  //   setActiveStep((prevState) => prevState - 1);
-  // };
+    else if (activeStep === 1) setPaymentInfo(data);
+  }, []);
+  const hanldeBackStep = useCallback(() => {
+    setActiveStep((prevState) => prevState - 1);
+  }, []);
   return (
     <StyledBoxWrapper>
       <Typography variant="h5">Checkout</Typography>
       <StyledPaper>
         <StepCheckout activeStep={activeStep} />
         <StyledFormWrapper>
-          {renderStep(activeStep, handleNextStep)}
+          {renderStep(
+            activeStep,
+            handleNextStep,
+            hanldeBackStep,
+            addressInfo,
+            paymentInfo
+          )}
         </StyledFormWrapper>
       </StyledPaper>
     </StyledBoxWrapper>

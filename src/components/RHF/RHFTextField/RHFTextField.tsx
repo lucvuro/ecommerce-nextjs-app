@@ -15,6 +15,7 @@ const RHFTextField: React.FC<TRHFTextFieldProps> = ({
     <Controller
       control={control}
       name={name}
+      defaultValue={props.defaultValue}
       rules={rules}
       render={({ field: { onChange, value } }) => (
         <Stack sx={{ width: `${props.fullWidth}` ? '100%' : 'auto' }}>

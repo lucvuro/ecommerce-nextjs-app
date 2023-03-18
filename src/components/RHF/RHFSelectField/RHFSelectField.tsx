@@ -18,12 +18,14 @@ const RHFSelectField: React.FC<TRHFSelectFieldProps> = ({
   fullWidth = false,
   rules = {},
   data = [],
+  defaultValue = '',
 }) => {
   const { control } = useFormContext();
   return (
     <Controller
       control={control}
       name={name}
+      defaultValue={defaultValue}
       rules={rules}
       render={({ field: { onChange, value } }) => (
         <FormControl fullWidth={fullWidth} error={error}>
