@@ -1,5 +1,6 @@
 import { Box, Button, Stack } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import Link from 'next/link';
 import React from 'react';
 
 import type { TCartTotalProps } from '@/components/cart/CartTotal/typings';
@@ -29,7 +30,9 @@ const CartTotal: React.FC<TCartTotalProps> = ({ totalPrice = 0 }) => {
         <p>Total</p>
         <p>{`$${totalPrice.toFixed(2)}`}</p>
       </Stack>
-      <StyledButton variant="outlined">Checkout</StyledButton>
+      <Link href="/checkout">
+        <StyledButton variant="outlined">Checkout</StyledButton>
+      </Link>
     </StyledBoxWrapper>
   );
 };

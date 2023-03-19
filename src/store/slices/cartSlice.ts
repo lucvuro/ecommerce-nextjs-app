@@ -52,6 +52,11 @@ export const cartSlice = createSlice({
       state.cartItems = newCartItems;
       state.totalPrice -= action.payload.count * action.payload.price;
     },
+    removeAllItem: (state) => {
+      state.cartItems = [];
+      state.totalItems = 0;
+      state.totalPrice = 0;
+    },
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
@@ -63,6 +68,7 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addItem, subtractItem, removeItem } = cartSlice.actions;
+export const { addItem, subtractItem, removeItem, removeAllItem } =
+  cartSlice.actions;
 export const cartState = (state: any) => state.cart;
 export default cartSlice.reducer;

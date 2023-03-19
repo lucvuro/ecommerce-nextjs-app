@@ -1,12 +1,14 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { StepCheckout } from '@/components/checkout';
 import type { TPaymentInfo } from '@/components/checkout/PaymentMethod/typings';
 import renderStep from '@/components/checkout/renderStep';
 import type { TShippingAddressData } from '@/components/checkout/ShippingAddress/typings';
 import { StyledBoxWrapper } from '@/components/common';
+import { removeAllItem } from '@/store/slices/cartSlice';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   width: '350px',
@@ -25,20 +27,25 @@ const StyledFormWrapper = styled(Box)(({ theme }) => ({
   paddingBottom: 0,
 }));
 const Checkout = () => {
+  const dispatch = useDispatch();
   const [activeStep, setActiveStep] = useState(0);
-  const [completedSteps, setCompeletedSteps] = useState(new Set<number>());
   const [addressInfo, setAddressInfo] = useState<TShippingAddressData | null>(
     null
   );
   const [paymentInfo, setPaymentInfo] = useState<TPaymentInfo | null>(null);
-  const handleNextStep = useCallback((data: any) => {
-    const newCompletedSteps = completedSteps;
-    newCompletedSteps.add(activeStep);
-    setActiveStep((prevState) => prevState + 1);
-    setCompeletedSteps(newCompletedSteps);
-    if (activeStep === 0) setAddressInfo(data);
-    else if (activeStep === 1) setPaymentInfo(data);
-  }, []);
+  const handleNextStep = useCallback(
+    (data: any) => {
+      setActiveStep((prevState) => prevState + 1);
+      if (activeStep === 0) setAddressInfo(data);
+      else if (activeStep === 1) setPaymentInfo(data);
+      else if (activeStep === 2) {
+        setAddressInfo(null);
+        setPaymentInfo(null);
+        dispatch(removeAllItem());
+      }
+    },
+    [activeStep, dispatch, removeAllItem]
+  );
   const hanldeBackStep = useCallback(() => {
     setActiveStep((prevState) => prevState - 1);
   }, []);

@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 
 import { CartTotal, ListItemCart } from '@/components/cart';
 import { StyledBoxWrapper } from '@/components/common';
+import { EmptyCart } from '@/components/common/Empty';
 import useCartState from '@/hooks/useCartState';
 import type { TCartItem } from '@/store/slices/cartSlice';
 import { addItem, removeItem, subtractItem } from '@/store/slices/cartSlice';
@@ -27,20 +28,28 @@ const Cart = () => {
     <StyledBoxWrapper>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Typography variant="h5">Your Cart</Typography>
-        <Link href="/">
-          <Button variant="contained" className="bg-[#1976d2]">
-            Cotinue to shopping
-            <ArrowForwardIcon />
-          </Button>
-        </Link>
+        {cartItems.length !== 0 && (
+          <Link href="/">
+            <Button variant="contained" className="bg-[#1976d2]">
+              Cotinue to shopping
+              <ArrowForwardIcon />
+            </Button>
+          </Link>
+        )}
       </Stack>
-      <ListItemCart
-        items={cartItems}
-        increaseItem={increaseItem}
-        decreaseItem={decreaseItem}
-        deleteItem={deleteItem}
-      />
-      {totalPrice !== 0 && <CartTotal totalPrice={totalPrice} />}
+      {cartItems.length !== 0 ? (
+        <>
+          <ListItemCart
+            items={cartItems}
+            increaseItem={increaseItem}
+            decreaseItem={decreaseItem}
+            deleteItem={deleteItem}
+          />
+          <CartTotal totalPrice={totalPrice} />
+        </>
+      ) : (
+        <EmptyCart />
+      )}
     </StyledBoxWrapper>
   );
 };

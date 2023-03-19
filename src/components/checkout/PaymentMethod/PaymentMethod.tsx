@@ -36,7 +36,8 @@ const customOnChangeCVV = (
 };
 
 const PaymentMethod: React.FC<TPaymentMethodProps> = ({
-  handleBackStep = () => {},
+  handleNextStep,
+  handleBackStep,
   paymentInfo,
 }) => {
   const methods = useForm<TPaymentInfo>();
@@ -45,7 +46,7 @@ const PaymentMethod: React.FC<TPaymentMethodProps> = ({
     formState: { errors },
   } = methods;
   const onSubmit: SubmitHandler<TPaymentInfo> = (data) => {
-    console.log(data);
+    handleNextStep(data);
   };
   return (
     <FormProvider {...methods}>
