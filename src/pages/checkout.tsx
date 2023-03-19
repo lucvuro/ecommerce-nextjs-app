@@ -1,5 +1,7 @@
-import { Box, Paper, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -33,7 +35,7 @@ const Checkout = () => {
     null
   );
   const [paymentInfo, setPaymentInfo] = useState<TPaymentInfo | null>(null);
-  const handleNextStep = useCallback(
+  const handleNextStep: any = useCallback(
     (data: any) => {
       setActiveStep((prevState) => prevState + 1);
       if (activeStep === 0) setAddressInfo(data);

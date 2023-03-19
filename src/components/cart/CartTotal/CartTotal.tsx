@@ -1,4 +1,6 @@
-import { Box, Button, Stack } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import Link from 'next/link';
 import React from 'react';

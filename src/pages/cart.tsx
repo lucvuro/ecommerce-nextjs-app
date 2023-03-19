@@ -1,5 +1,6 @@
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { Button, Stack } from '@mui/material';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import { useCallback } from 'react';

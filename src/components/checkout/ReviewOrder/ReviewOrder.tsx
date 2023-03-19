@@ -23,7 +23,6 @@ const ReviewOrder: React.FC<TReviewOrderProps> = ({
   handleBackStep = () => {},
   handleNextStep = () => {},
 }) => {
-  console.log(addressInfo);
   const { cartItems, totalPrice } = useCartState();
   return (
     <Stack gap={2}>
